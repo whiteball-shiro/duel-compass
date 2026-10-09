@@ -26,7 +26,7 @@ test('fresh MCP exposes ruling tools and returns installed evidence through an i
   try {
     await client.connect(transport);
     connected = true;
-    assert.deepEqual(client.getServerVersion(), { name: 'duel-compass', version: '1.4.0-beta.2' });
+    assert.deepEqual(client.getServerVersion(), { name: 'duel-compass', version: '1.0.0' });
     const resources = await client.listResources();
     assert.ok(resources.resources.some(resource => resource.uri === 'ui://duel-compass/card-lookup-v1.html'));
     const list = await client.listTools();

@@ -1,6 +1,6 @@
 {
   "name": "duel-compass-engine",
-  "version": "1.4.0-beta.2",
+  "version": "1.0.0",
   "private": true,
   "license": "0BSD",
   "type": "module",

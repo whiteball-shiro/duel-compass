@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0
+
+Duel Compass begins its independent version history at 1.0.0. Earlier 1.4.0-beta previews were preparation releases; upstream version numbers do not define this project version.
+
+- Full card effects, artwork batches and correct LINK display.
+- Source-backed OCG evidence, deck learning and replay tools.
+- First installation retrieves the matched database, banlist and scripts from pinned GitHub data; no card CDN or manually prepared database required.
+- Atomic initialization, validation and preservation of existing data.
+- Fresh installation and full integration tests on Windows / Linux with Node 22 / 24.
+
 ## 1.4.0-beta.2
 
 - Restore GitHub-based first installation: fetch the matched database, banlist and scripts from a pinned ygo-ai commit.

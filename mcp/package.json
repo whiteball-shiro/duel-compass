@@ -1,6 +1,6 @@
 {
   "name": "duel-compass-mcp",
-  "version": "1.4.0-beta.2",
+  "version": "1.0.0",
   "description": "Duel Compass: Yu-Gi-Oh card research, source-backed rulings, deck learning, replay analysis and local duel tools.",
   "type": "module",
   "private": true,

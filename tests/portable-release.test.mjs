@@ -44,7 +44,7 @@ test('fresh MCP lists all tools and UI without a bundled database', async () => 
   const transport = new StdioClientTransport({ command: process.execPath, args: [fileURLToPath(new URL('../mcp/server.mjs', import.meta.url))], stderr: 'pipe' });
   try {
     await client.connect(transport);
-    assert.deepEqual(client.getServerVersion(), { name: 'duel-compass', version: '1.4.0-beta.2' });
+    assert.deepEqual(client.getServerVersion(), { name: 'duel-compass', version: '1.0.0' });
     assert.equal((await client.listTools()).tools.length, 17);
     assert.ok((await client.listResources()).resources.some(x => x.uri === 'ui://duel-compass/card-lookup-v1.html'));
   } finally { await client.close(); }

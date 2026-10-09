@@ -4,7 +4,7 @@
 
 Duel Compass is a local Yu-Gi-Oh! MCP server for card research, evidence retrieval, deck learning, replay analysis and engine-backed play. It extends [inoribea/ygo-ai](https://github.com/inoribea/ygo-ai), retaining original authorship and licenses. This is an independent community project, not an official Konami product.
 
-**版本：1.4.0-beta.2，首发预览版。** 资料检索提供证据；最终裁定需要结合完整场面核实。
+**版本：1.0.0，Duel Compass 独立项目首个正式版本。** 资料检索提供证据；最终裁定需要结合完整场面核实。
 
 ## 安装
 
