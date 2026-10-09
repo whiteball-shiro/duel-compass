@@ -59,6 +59,6 @@ npm run test:integration
 npm pack
 ```
 
-默认测试使用独立合成资料，不下载卡库。集成测试要求已初始化真实资料，涵盖真实异画、裁定索引及录像。CI 在 Windows / Linux、Node 22 / 24 运行默认检查。版本标签触发打包、校验和与 GitHub 预览版本。
+默认测试使用独立合成资料，不下载卡库。集成测试要求已初始化真实资料，涵盖真实异画、裁定索引及录像。CI 在 Windows / Linux、Node 22 / 24 运行默认检查。版本标签触发打包、校验和与 GitHub 版本发布；main 分支中以 Publish release 开头的明确发布提交也可触发，普通提交不会自动发布。
 
 源码采用 0BSD，少量复用检索模块保留 MIT 许可，见 [第三方说明](THIRD_PARTY_NOTICES.md)。外部资料版权与代码许可独立。
