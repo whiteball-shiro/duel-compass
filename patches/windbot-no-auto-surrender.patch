@@ -1,0 +1,17 @@
+diff --git skill/resources/ygopro2-bridge/windbot/source/Game/GameBehavior.cs.bak skill/resources/ygopro2-bridge/windbot/source/Game/GameBehavior.cs
+index 813f6ab..b5a7f59 100644
+--- skill/resources/ygopro2-bridge/windbot/source/Game/GameBehavior.cs.bak
++++ skill/resources/ygopro2-bridge/windbot/source/Game/GameBehavior.cs
+@@ -585,11 +585,7 @@ namespace WindBot.Game
+             _duel.Turn++;
+             _duel.Player = GetLocalPlayer(packet.ReadByte());
+             _ai.OnNewTurn();
+-            if (_externalPolicy != null && _duel.Turn > 1)
+-            {
+-                _externalPolicy.NotifyCutoff();
+-                Game.Surrender();
+-            }
++            // [patched 2026-09-09] hardcoded Turn>1 NotifyCutoff+Surrender removed for real multi-turn duels
+         }
+ 
+         private void OnNewPhase(BinaryReader packet)

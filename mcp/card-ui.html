@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{color-scheme:light dark}body{margin:0;padding:14px;font:14px/1.65 system-ui,sans-serif}article{display:flex;gap:18px;padding:12px 0;border-bottom:1px solid #8884}img{width:200px;height:auto;align-self:flex-start}h2{font-size:18px;margin:0 0 8px}p{margin:5px 0;white-space:pre-wrap}.details{min-width:0}.status{color:#888}@media(max-width:440px){article{flex-direction:column}img{align-self:center}}
+</style>
+<main id="cards"><p class="status">等待卡片查询结果。</p></main>
+<script>
+(() => {
+  const root = document.getElementById('cards');
+  const pending = new Map(); let rpcId = 0;
+  const notify = (method, params) => parent.postMessage({jsonrpc:'2.0',method,params}, '*');
+  const request = (method, params) => new Promise((resolve, reject) => {
+    const id = ++rpcId; pending.set(id, {resolve,reject});
+    parent.postMessage({jsonrpc:'2.0',id,method,params}, '*');
+  });
+  const text = (tag, value) => { const element=document.createElement(tag); element.textContent=String(value ?? ''); return element; };
+  function render(result) {
+    const cards = result?.structuredContent?.cards;
+    if (!Array.isArray(cards)) return;
+    const images = result?._meta?.nativeCardImages ?? result?.content?.filter(item => item.type === 'image') ?? [];
+    root.replaceChildren();
+    if (!cards.length) root.append(text('p','未找到卡片。'));
+    for (const card of cards) {
+      const article=document.createElement('article');
+      const image=Number.isInteger(card.imageIndex) ? images[card.imageIndex] : null;
+      if (image && ['image/webp','image/png','image/jpeg'].includes(image.mimeType) && typeof image.data === 'string' && image.data.length <= 700000 && /^[A-Za-z0-9+/=]+$/.test(image.data)) {
+        const img=document.createElement('img'); img.alt=String(card.name ?? card.id);
+        img.src='data:'+image.mimeType+';base64,'+image.data;
+        img.onload=()=>notify('ui/notifications/size-changed', {height:document.documentElement.scrollHeight});
+        img.onerror=()=>img.replaceWith(text('p','卡图显示失败。'));
+        article.append(img);
+      } else article.append(text('p','没有可显示的卡图。'));
+      const details=document.createElement('div'); details.className='details';
+      details.append(text('h2',card.name),text('p','卡片密码 '+card.id));
+      const types = String(card.type ?? '').split('/').map(value=>value.trim().toLowerCase());
+      const isLink = types.includes('link');
+      const isXyz = types.includes('xyz');
+      const rating = card.level == null ? null : isLink ? 'LINK-'+card.level : isXyz ? '阶级 '+card.level : card.level+'星';
+      details.append(text('p',[card.type,card.attribute,card.race,rating].filter(value=>value!=null).join(' · ')));
+      if (card.atk != null) details.append(text('p','ATK '+card.atk+(isLink || card.def == null ? '' : ' / DEF '+card.def)));
+      details.append(text('p',card.effect)); article.append(details); root.append(article);
+    }
+    notify('ui/notifications/size-changed', {height:document.documentElement.scrollHeight});
+  }
+  window.addEventListener('message', event => {
+    if (event.source !== parent || event.data?.jsonrpc !== '2.0') return;
+    const message=event.data;
+    if (pending.has(message.id)) {
+      const waiter=pending.get(message.id); pending.delete(message.id);
+      if (message.error) waiter.reject(message.error); else waiter.resolve(message.result);
+    } else if (message.method === 'ui/notifications/tool-result') render(message.params);
+  });
+  request('ui/initialize', {appInfo:{name:'ygo-card-view',version:'1.0.0'},appCapabilities:{},protocolVersion:'2026-01-26'})
+    .then(()=>notify('ui/notifications/initialized',{}))
+    .catch(()=>{root.replaceChildren(text('p','客户端未能初始化卡图展示组件。'));});
+})();
+</script></html>
