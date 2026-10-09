@@ -6,6 +6,24 @@ on:
 permissions:
   contents: write
 jobs:
+  release-notes:
+    if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'Update release notes ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update existing release notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+            const tag = `v${version}`;
+            if (context.payload.head_commit.message.split('\n')[0] !== `Update release notes ${tag}`) {
+              throw new Error('Requested release does not match package version');
+            }
+            const body = fs.readFileSync(`docs/releases/${tag}.md`, 'utf8');
+            const { data: release } = await github.rest.repos.getReleaseByTag({ ...context.repo, tag });
+            await github.rest.repos.updateRelease({ ...context.repo, release_id: release.id, body });
   release:
     if: github.ref_type == 'tag' || startsWith(github.event.head_commit.message, 'Publish release ')
     runs-on: ubuntu-latest

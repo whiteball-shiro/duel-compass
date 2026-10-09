@@ -2,8 +2,6 @@
 
 ## 1.0.0
 
-Duel Compass begins its independent version history at 1.0.0. Earlier 1.4.0-beta previews were preparation releases; upstream version numbers do not define this project version.
-
 - Full card effects, artwork batches and correct LINK display.
 - Source-backed OCG evidence, deck learning and replay tools.
 - First installation retrieves the matched database, banlist and scripts from pinned GitHub data; no card CDN or manually prepared database required.
