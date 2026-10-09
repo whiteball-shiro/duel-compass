@@ -1,6 +1,6 @@
 # Duel Compass / 决斗罗盘
 
-面向 AI Agent 的游戏王 MCP 工具集：查卡与异画展示、禁限表、来源可追溯的 OCG 规则检索、卡组学习、录像分析和本地决斗引擎。
+面向 AI Agent 的游戏王 MCP 工具集：查卡、禁限表、来源可追溯的 OCG 规则检索、卡组学习、录像分析和本地决斗引擎。
 
 Duel Compass is a local Yu-Gi-Oh! MCP server for card research, evidence retrieval, deck learning, replay analysis and engine-backed play. It extends [inoribea/ygo-ai](https://github.com/inoribea/ygo-ai), retaining original authorship and licenses. This is an independent community project, not an official Konami product.
 
