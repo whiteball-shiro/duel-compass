@@ -1,5 +1,5 @@
 import { resolveSkillConfig } from '../skill/backend/config.mjs';
-import { refreshCardDataSources } from '../skill/runtime/src/database/card-data-updater.js';
+import { initializeGithubCardData } from './github-card-data.mjs';
 import { refreshRulingSources } from '../skill/backend/ruling-sources.mjs';
 import { cp, mkdir, readFile, stat, rename } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
@@ -25,8 +25,8 @@ try {
       await rename(stage, destination);
       console.log('Imported local card data from ' + source);
     } else {
-      const result = await refreshCardDataSources({ progress: true });
-      if (result.ok !== true) throw new Error('Downloaded card data failed validation.');
+      const result = await initializeGithubCardData({ resourceRoot: config.resourceRoot });
+      console.log(JSON.stringify({ existing: result.existing, cards: result.cards, source: result.source }));
     }
     console.log('Card database, banlist and scripts initialized.');
   }

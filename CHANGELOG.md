@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0-beta.2
+
+- Restore GitHub-based first installation: fetch the matched database, banlist and scripts from a pinned ygo-ai commit.
+- Remove the CDN from initial card data setup; keep explicit CDN refresh as an optional later update.
+- Validate source commit, SQLite records and engine support scripts before atomic installation.
+- Preserve existing data on repeated initialization and record source provenance.
+
 ## 1.4.0-beta.1
 
 - Independent Duel Compass identity with retained upstream provenance.

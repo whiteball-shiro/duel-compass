@@ -17,4 +17,12 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: Initialize data from GitHub in a fresh directory
+        run: npm run data:init
+        env:
+          DUEL_COMPASS_DATA_DIR: ${{ runner.temp }}/duel-compass-install-data
+      - name: Verify real card data and MCP integration
+        run: npm run test:integration
+        env:
+          DUEL_COMPASS_DATA_DIR: ${{ runner.temp }}/duel-compass-install-data
       - run: npm pack --dry-run

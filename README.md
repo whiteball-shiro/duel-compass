@@ -4,11 +4,11 @@
 
 Duel Compass is a local Yu-Gi-Oh! MCP server for card research, evidence retrieval, deck learning, replay analysis and engine-backed play. It extends [inoribea/ygo-ai](https://github.com/inoribea/ygo-ai), retaining original authorship and licenses. This is an independent community project, not an official Konami product.
 
-**版本：1.4.0-beta.1，首发预览版。** 资料检索提供证据；最终裁定需要结合完整场面核实。
+**版本：1.4.0-beta.2，首发预览版。** 资料检索提供证据；最终裁定需要结合完整场面核实。
 
 ## 安装
 
-需要 Node.js 22 或 24，以及可访问 npm、GitHub 和资料源的网络。
+需要 Node.js 22 或 24、Git 2.25 或更新版本，以及可访问 npm、GitHub 和规则资料源的网络。
 
 ```sh
 git clone https://github.com/whiteball-shiro/duel-compass.git
@@ -17,9 +17,9 @@ npm ci
 npm run data:init
 ```
 
-初始化下载第三方卡库、脚本与规则资料。仓库不携带完整卡库、官方问答快照、卡图、个人录像或学习记录。默认数据目录为用户主目录下的 `.duel-compass`；环境变量 `DUEL_COMPASS_DATA_DIR` 可更换位置。资料来源见 [资料说明](docs/DATA_SOURCES.md)。初始化可能需要数分钟，失败返回非零状态，可检查网络后重试。只初始化其中一类：`npm run data:init -- --cards-only` 或 `--rulings-only`。
+首次初始化从基础版 ygo-ai 的固定 GitHub 提交获取已经配套的卡库、禁限表和脚本，再从 GitHub 初始化规则资料，不依赖卡库 CDN。仓库不携带完整卡库、官方问答快照、卡图、个人录像或学习记录。默认数据目录为用户主目录下的 `.duel-compass`；环境变量 `DUEL_COMPASS_DATA_DIR` 可更换位置。资料来源见 [资料说明](docs/DATA_SOURCES.md)。初始化可能需要数分钟，失败返回非零状态，可检查网络后重试。只初始化其中一类：`npm run data:init -- --cards-only` 或 `--rulings-only`。
 
-如果 CDN 无法下载，可使用已有的兼容 Koishi/YGOPro 数据目录：`npm run data:init -- --from "/path/to/lib"`。目录需包含 cards.cdb，建议同时包含配套 ygopro-scripts、strings.conf 与 lflist.conf。导入仅允许使用新的数据目录，不会覆盖已有资料。仅查卡可以使用卡库；决斗需要完整匹配的脚本，禁限查询需要禁限表。离线导入时加 `--cards-only`，规则资料可随后单独初始化。
+也可使用已有的兼容 Koishi/YGOPro 数据目录：`npm run data:init -- --from "/path/to/lib"`。目录需包含 cards.cdb，建议同时包含配套 ygopro-scripts、strings.conf 与 lflist.conf。导入仅允许使用新的数据目录，不会覆盖已有资料。仅查卡可以使用卡库；决斗需要完整匹配的脚本，禁限查询需要禁限表。离线导入时加 `--cards-only`，规则资料可随后单独初始化。基础资料固定于 `60dde4b53ef5e7bfa1a1e7e86269551c8e6659ea`，后续卡库更新仍通过 `manageCardDataSources` 的显式刷新使用 CDN；更新失败不代表首次安装失败。重复运行初始化会验证并保留已有卡库，不覆盖本地更新。
 
 ## 连接 MCP
 

@@ -17,6 +17,13 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: Verify fresh GitHub initialization before publishing
+        run: npm run data:init
+        env:
+          DUEL_COMPASS_DATA_DIR: ${{ runner.temp }}/duel-compass-release-data
+      - run: npm run test:integration
+        env:
+          DUEL_COMPASS_DATA_DIR: ${{ runner.temp }}/duel-compass-release-data
       - name: Resolve release version
         id: version
         run: |
