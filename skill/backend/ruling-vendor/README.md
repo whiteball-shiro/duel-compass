@@ -1,15 +1,15 @@
-# Vendored evidence retrieval modules
+# 复用的规则检索模块
 
-Source: https://github.com/coldiceh/ocg-ruling-assistant
+来源：[coldiceh/ocg-ruling-assistant](https://github.com/coldiceh/ocg-ruling-assistant)。
 
-Pinned commit: `83372752dc517b93f22ad4d85e46082f235cc16d`.
+固定提交：`83372752dc517b93f22ad4d85e46082f235cc16d`。
 
-The following files are copied unchanged from upstream `backend/`:
+以下文件从上游的 `backend/` 目录原样复制：
 
 - `rulebookPassageRetriever.mjs`
 - `evidenceQuestionTypeClassifier.mjs`
 - `liveOfficialQaProvider.mjs`
 
-The upstream MIT license is retained in `LICENSE`. Surrounding Duel Compass integration is in `../ruling-evidence.mjs` and `../ruling-sources.mjs`; it does not embed or invoke upstream model-answer generation.
+上游 MIT 许可原文保留在 `LICENSE` 中。Duel Compass 的接入代码位于 `../ruling-evidence.mjs` 与 `../ruling-sources.mjs`；未嵌入或调用上游的模型回答生成流程。
 
-Evidence data comes from the commit-pinned upstream `data/` snapshot. Original record links, snapshot date and commit provenance are retained in the local manifest. Upstream's software license does not establish a general license grant over third-party card artwork, text or rulings. Name identity bridges carry factual-reference scope notice in `FACTUAL-REFERENCES.txt`; only necessary name/CID/Japanese-identity facts are imported. No images or complete third-party nickname databases are imported by this extension.
+检索资料来自锁定提交的上游 `data/` 快照，本地清单保留原始记录链接、快照日期和来源提交。上游的软件许可不代表第三方卡图、卡文或裁定资料也采用相同许可。卡名身份映射的引用范围见 `FACTUAL-REFERENCES.txt`；仅导入必要的卡名、CID 与日文身份信息，此扩展未导入图片或完整的第三方别名数据库。

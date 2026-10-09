@@ -2,7 +2,7 @@
 
 面向 AI Agent 的游戏王 MCP 工具集：查卡、禁限表、来源可追溯的 OCG 规则检索、卡组学习、录像分析和本地决斗引擎。
 
-Duel Compass is a local Yu-Gi-Oh! MCP server for card research, evidence retrieval, deck learning, replay analysis and engine-backed play. It extends [inoribea/ygo-ai](https://github.com/inoribea/ygo-ai), retaining original authorship and licenses. This is an independent community project, not an official Konami product.
+Duel Compass 基于 [inoribea/ygo-ai](https://github.com/inoribea/ygo-ai) 扩展，复用 [coldiceh/ocg-ruling-assistant](https://github.com/coldiceh/ocg-ruling-assistant) 的检索模块，并通过其资料快照检索 [lucays/OCG-Rule-documentation](https://github.com/lucays/OCG-Rule-documentation) 的社区规则整理。各项目的具体用途与许可见下方来源说明。本项目为社区工具，与 Konami 无官方隶属关系。
 
 **版本：1.0.0。** 资料检索提供证据；最终裁定需要结合完整场面核实。
 
@@ -50,6 +50,21 @@ npm run data:init
 共 17 个公共工具，完整输入规范由 MCP 的 tools/list 返回。兼容原项目的 YGO_* 环境变量，不需要另一个模型 API 密钥。
 
 YGOPro2 / WindBot 桥接是可选能力，需要自行安装兼容的外部程序并配置路径；此仓库不分发其二进制。默认 JavaScript 引擎无需这些程序。原有桥接与工具文档位于 skill 目录。
+
+## 项目与资料来源
+
+| 来源 | 在 Duel Compass 中的用途 |
+| --- | --- |
+| [inoribea/ygo-ai](https://github.com/inoribea/ygo-ai) | MCP、卡片查询与对局工具的代码基础；首次安装从固定提交获取配套卡库、禁限表与脚本。保留原有 0BSD 许可和版权声明。 |
+| [coldiceh/ocg-ruling-assistant](https://github.com/coldiceh/ocg-ruling-assistant) | 复用规则段落检索、问题类型识别和实时问答检索三个模块；初始化时下载其规则与问答资料快照。三个模块保留 MIT 许可。 |
+| [lucays/OCG-Rule-documentation](https://github.com/lucays/OCG-Rule-documentation) | 社区规则整理来源，通过上述资料快照接入检索。仓库未打包其完整文档。 |
+| [YGOResources](https://db.ygoresources.com/) | 卡片问答与 FAQ 镜像，用于实时检索；结果保留来源链接。 |
+| Koishi / YGOPro CDN、[Smile-DK/ygopro-scripts](https://github.com/Smile-DK/ygopro-scripts) | 用户明确请求刷新时获取卡库、禁限表和配套脚本。 |
+| [Konami 游戏王数据库](https://www.db.yugioh-card.com/yugiohdb/) | 官方卡片与问答来源链接，用于核实卡片信息和裁定。 |
+
+运行依赖包括 MCP SDK、`koishipro-core.js`、`sql.js`、`jszip`、`ygopro-msg-encode` 和 `ygopro-yrp-encode`，各自保留其许可。Duel Compass 的扩展包括卡组学习、规则检索接入、完整卡文与异画展示、连接怪兽字段修正，以及安装与资料管理。
+
+具体代码复用与资料使用范围见 [第三方说明](THIRD_PARTY_NOTICES.md) 与 [资料来源](docs/DATA_SOURCES.md)。
 
 ## 开发与验证
 
